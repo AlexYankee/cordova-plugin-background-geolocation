@@ -136,12 +136,14 @@
     NSLog(@"  - stopOnTerminate: %d", stopOnTerminate);
     
     // ios 8 requires permissions to send local-notifications
+    #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
     if (isDebugging) {
         UIApplication *app = [UIApplication sharedApplication];
         if ([app respondsToSelector:@selector(registerUserNotificationSettings:)]) {
             [app registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound categories:nil]];
         }
     }
+    #endif
 }
 
 - (void) addStationaryRegionListener:(CDVInvokedUrlCommand*)command
